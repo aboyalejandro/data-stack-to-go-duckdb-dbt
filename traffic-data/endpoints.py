@@ -109,31 +109,18 @@ def save_to_duck_db(table_name):
     # Define the path to the files directory
     files_path = "files/"
 
-    # Check if the directory exists
-    if not os.path.exists(files_path):
-        logging.error(f"The directory {files_path} does not exist.")
-        return
-
-    # Filter the list to include only .csv files
-    files = [file for file in os.listdir(files_path) if file.endswith(".csv")]
-
-    if not files:
-        logging.info(f"No CSV files found in {files_path}")
-        return
-
     logging.info("Converting CSV files into DuckDB tables.")
     con = duckdb.connect(f'{os.getenv("DUCKDB_PATH")}')
 
-    for file in files:
-        file_path = os.path.join(files_path, file)
+    file_path = os.path.join(files_path, f"{table_name}.csv")
 
-        try:
-            con.execute(
-                f"CREATE OR REPLACE TABLE {table_name} AS (SELECT * FROM read_csv_auto('{file_path}', delim=',', header=true))"
-            )
-            logging.info(f"Table {table_name} created in DuckDB using {file}.")
-        except Exception as e:
-            logging.error(f"Error creating table {table_name} from {file}: {str(e)}")
+    try:
+        con.execute(
+            f"CREATE OR REPLACE TABLE {table_name} AS (SELECT * FROM read_csv_auto('{file_path}', delim=',', header=true))"
+        )
+        logging.info(f"Table {table_name} created in DuckDB.")
+    except Exception as e:
+        logging.error(f"Error creating table {table_name}: {str(e)}")
 
     con.close()
 
