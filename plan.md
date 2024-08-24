@@ -1,4 +1,3 @@
-- fix dbt build
 - dockerfile dbt part
 - add dbt docker-compose.yml
 

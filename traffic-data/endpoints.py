@@ -151,6 +151,26 @@ def get_endpoints_data(url, endpoint, website_id, bearer):
     data = pd.DataFrame(columns=column_names)
     data = pd.DataFrame.from_dict(response.json()["data"])
     data.columns = column_names
+    data["date_inserted"] = pd.Timestamp.now().strftime("%Y-%m-%d %X")
+
+    logging.info(f"Applying transformations to {endpoint} endpoint...")
+    if endpoint == "events":
+        data["goal_id"] = data["goal_id"].apply(lambda x: x[1])
+        data = data.convert_dtypes()
+    elif endpoint == "sessions":
+        data["visitor_returning"] = data["visitor_returning"].apply(lambda x: x[1])
+        data["location_country_name"] = data["location_country_name"].apply(
+            lambda x: x[1]
+        )
+    else:
+        data["referrer_type"] = data["referrer_type"].apply(lambda x: x[1])
+        data["visitor_returning"] = data["visitor_returning"].apply(lambda x: x[1])
+        data["location_country_name"] = data["location_country_name"].apply(
+            lambda x: x[1]
+        )
+        data["operating_system"] = data["operating_system"].apply(lambda x: x[1])
+        data["device_type"] = data["device_type"].apply(lambda x: x[1])
+        data = data.convert_dtypes()
 
     logging.info(f"Saving {endpoint} DataFrame to CSV file.")
     data.to_csv(f"files/{endpoint}.csv", index=False)
