@@ -4,6 +4,9 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Avoid __pycache__
+ENV PYTHONDONTWRITEBYTECODE=1
+
 # Copy only the requirements file first to leverage Docker cache
 COPY ./traffic-data/requirements.txt ./traffic-data/
 
