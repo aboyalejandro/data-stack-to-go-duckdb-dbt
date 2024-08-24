@@ -7,3 +7,4 @@
 /website-analytics/logs
 /website-analytics/package-lock.yml
 .DS_Store
+.plan
