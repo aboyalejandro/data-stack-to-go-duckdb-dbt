@@ -1,0 +1,12 @@
+services:
+  traffic-data:
+    build:
+      context: .
+      dockerfile: ./traffic-data/Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - ./traffic-data:/app/traffic-data
+      - ./.env:/app/.env
+    working_dir: /app/traffic-data
+    command: python run_pipeline.py
