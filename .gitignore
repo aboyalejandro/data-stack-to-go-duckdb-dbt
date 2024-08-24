@@ -6,5 +6,4 @@
 /website-analytics/target
 /website-analytics/logs
 /website-analytics/package-lock.yml
-.DS_Store
-.plan.md
+plan.md
