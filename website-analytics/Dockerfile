@@ -4,12 +4,12 @@ FROM python:3.10-slim-buster
 # Set the working directory to /app
 WORKDIR /app
 
+# Copy ALL folders
+COPY . .
+
 # Export ENV vars
 ENV INPUT_FILES_PATH=${INPUT_FILES_PATH}
 ENV DUCKDB_PATH=${DUCKDB_PATH}
-
-# Copy the dbt project directory into the container
-COPY . .
 
 # Set the working directory to /website-analytics
 WORKDIR /app/website-analytics
