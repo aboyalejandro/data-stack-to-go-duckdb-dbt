@@ -10,3 +10,19 @@ services:
       - ./.env:/app/.env
     working_dir: /app/traffic-data
     command: python run_pipeline.py
+
+  website_analytics:
+    build:
+      context: .
+      dockerfile: ./website-analytics/Dockerfile
+    env_file:
+      - ./.env
+    environment:
+    - ENV={ENV}
+    volumes:
+      - ./website-analytics:/app/website-analytics
+      - ./.env:/app/.env
+    working_dir: /app/website-analytics
+    depends_on:
+      traffic-data:
+        condition: service_completed_successfully

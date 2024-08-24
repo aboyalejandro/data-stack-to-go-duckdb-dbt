@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r ./traffic-data/requirements.txt
 WORKDIR /app/traffic-data
 
 # Run the script when the container launches
-CMD ["sh", "-c", "pythonrun_pipeline.py","tail", "-f", "/dev/null"]
+CMD ["python" , "run_pipeline.py"]
