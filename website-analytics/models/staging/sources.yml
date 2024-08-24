@@ -1,0 +1,8 @@
+sources: 
+  - name: traffic_data
+    meta:
+        external_location: "read_csv('{{ env_var('INPUT_FILES_PATH') }}/{name}.csv')"
+    tables:
+      - name: sessions 
+      - name: query
+      - name: events 

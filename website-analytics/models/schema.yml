@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: stg_sessions
+    description: Sessions tables from PiwikPRO.
+    columns:
+      - name: session_id
+        data_tests:
+          - unique
+          - not_null
+          - dbt_expectations.expect_column_to_exist
+        description: This is a unique identifier for a session.
+      - name: visitor_id
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_to_exist
+        description: This is a unique identifier for a visitor.
+
+  - name: stg_events
+    description: Snowpipe events table from PiwikPRO. 
+
+    columns:
+      - name: event_id
+        data_tests:
+          - unique
+          - not_null
+          - dbt_expectations.expect_column_to_exist
+        description: This is a unique identifier for an event.
+      - name: session_id
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_to_exist
+          - relationships:
+              to: ref('stg_sessions')
+              field: session_id
+        description: This is a unique identifier for a session.
+      - name: visitor_id
+        data_tests:
+          - not_null
+          - dbt_expectations.expect_column_to_exist
+          - relationships:
+              to: ref('stg_sessions')
+              field: visitor_id
+        description: This is a unique identifier for a visitor.
+          
+  - name: stg_analytics
+    description: UI extracted API definition table from PiwikPRO.
+    columns:
+      - name: referrer_type
+        data_tests:
+          - accepted_values:
+              values: ["Social","Direct entry","Website","Search engine","Campaign"]
+      - name: visitor_returning
+        data_tests:
+          - accepted_values:
+              values: ["Returning"]
