@@ -1,5 +1,4 @@
-- dockerfile dbt part
-- add dbt docker-compose.yml
+- hacer un Makefile (agregar clean files)
 
 - agregar
     - tests
