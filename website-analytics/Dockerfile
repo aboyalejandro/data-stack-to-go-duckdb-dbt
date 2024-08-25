@@ -10,6 +10,7 @@ COPY . .
 # Export ENV vars
 ENV INPUT_FILES_PATH=${INPUT_FILES_PATH}
 ENV DUCKDB_PATH=${DUCKDB_PATH}
+ENV PYTHONDONTWRITEBYTECODE=1 
 
 # Set the working directory to /website-analytics
 WORKDIR /app/website-analytics
@@ -18,7 +19,5 @@ WORKDIR /app/website-analytics
 RUN pip install --upgrade pip
 RUN pip install dbt-duckdb
 
-# Install dbt dependencies (as specified in packages.yml file)
-# Build seeds, models, tests and snapshots
-
-CMD ["sh", "-c", "dbt deps && dbt build"]
+# Command to run when starting the container
+CMD ["sh", "-c", "dbt deps && dbt build && tail -f /dev/null"]
