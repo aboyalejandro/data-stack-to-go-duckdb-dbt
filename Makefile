@@ -12,6 +12,7 @@ clean:
 	docker compose down --rmi all --volumes --remove-orphans
 	find ./traffic-data/files -mindepth 1 ! -name '.gitkeep' -delete
 	find ./website-analytics/traffic_data.duckdb  -delete
+	rm .DS_Store
 
 # Connect back to duckdb 
 duckdb files:
