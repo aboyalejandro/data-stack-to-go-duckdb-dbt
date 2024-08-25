@@ -15,6 +15,3 @@ RUN pip install --no-cache-dir -r ./traffic-data/requirements.txt
 
 # Set the working directory to the traffic-data folder
 WORKDIR /app/traffic-data
-
-# Create the files directory
-RUN mkdir -p /app/traffic-data/files
