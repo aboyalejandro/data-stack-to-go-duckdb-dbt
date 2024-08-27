@@ -5,6 +5,8 @@ import duckdb
 import os
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 
 def get_auth(url, client_id, client_secret):
     logging.info(f"Authenticating to website...")
