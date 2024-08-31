@@ -1,4 +1,4 @@
-name: Daily Home Expenses Update
+name: Data Stack To Go - Daily Job
 
 on:
   schedule:
