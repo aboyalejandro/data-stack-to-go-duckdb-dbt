@@ -100,3 +100,6 @@ for table in tables:
         body=body,
     ).execute()
     logging.info(f"Uploaded {csv_file_name} to Google Sheets tab '{table}'")
+logging.info(
+    f"\n Uploaded all tables to Google Sheets. Container is still running. \n Open another terminal and run make duckdb-files to query data or press Ctrl+C...'"
+)

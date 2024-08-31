@@ -17,18 +17,16 @@ GET_CONTAINER_ID := $(DOCKER_COMPOSE) ps -q reporting
 # Connect back to duckdb 
 duckdb-files:
 	$(eval CONTAINER_ID := $(shell $(GET_CONTAINER_ID)))
+	@echo "Copying files from container..."
 	docker cp $(CONTAINER_ID):/app/traffic-data/files/traffic_data.duckdb ./website-analytics/traffic_data.duckdb
-	docker cp $(CONTAINER_ID):/app/traffic-data/files/query.csv ./traffic-data/files/query.csv
-	docker cp $(CONTAINER_ID):/app/traffic-data/files/events.csv ./traffic-data/files/events.csv
-	docker cp $(CONTAINER_ID):/app/traffic-data/files/sessions.csv ./traffic-data/files/sessions.csv
+	docker cp $(CONTAINER_ID):/app/traffic-data/files/. ./traffic-data/files/ && rm -f ./traffic-data/files/traffic_data.duckdb
 	$(DOCKER_COMPOSE) down
-
-# Connect to duckdb 
-duckdb:
+	@echo "Activating DuckDB instance..."
 	(cd website-analytics && duckdb traffic_data.duckdb)
 
 # Stop and remove the container, image and generated files
 clean:
+	@echo "Removing all generated files..."
 	$(DOCKER_COMPOSE) down --rmi all --volumes --remove-orphans
 	find ./traffic-data/files -mindepth 1 ! -name '.gitkeep' -delete
 	find ./website-analytics -name 'traffic_data.duckdb' -delete
