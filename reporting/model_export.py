@@ -27,7 +27,7 @@ conn.close()
 
 # Set up credentials
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-SERVICE_ACCOUNT_FILE = os.environ["SERVICE_ACCOUNT_JSON"]
+SERVICE_ACCOUNT_FILE = "service_account.json"
 
 try:
     creds = service_account.Credentials.from_service_account_file(
