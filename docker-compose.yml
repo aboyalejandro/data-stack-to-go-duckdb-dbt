@@ -42,7 +42,9 @@ services:
     depends_on:
       website-analytics:
         condition: service_completed_successfully
-    command: python model_export.py 
+    command: sh -c "python model_export.py && tail -f /dev/null"
+    tty: true
+    stdin_open: true
 
 volumes:
   shared-data:
