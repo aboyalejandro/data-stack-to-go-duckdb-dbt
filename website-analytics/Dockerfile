@@ -18,6 +18,3 @@ WORKDIR /app/website-analytics
 # Install dependencies
 RUN pip install --upgrade pip
 RUN pip install dbt-duckdb
-
-# Command to run when starting the container
-CMD ["sh", "-c", "dbt deps && dbt build && tail -f /dev/null"]

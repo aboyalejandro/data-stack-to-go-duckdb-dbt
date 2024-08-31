@@ -1,9 +1,8 @@
 .env
-/traffic-data/__pycache__/
-/traffic-data/files/
+plan_.md
+.DS_Store
 /website-analytics/.user.yml
 /website-analytics/target
 /website-analytics/logs
 /website-analytics/package-lock.yml
-plan_.md
-.DS_Store
+/reporting/service_account.json
