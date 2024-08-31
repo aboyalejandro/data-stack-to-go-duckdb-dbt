@@ -6,7 +6,7 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
-  setup:
+  daily_job:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -17,10 +17,6 @@ jobs:
       with:
         python-version: '3.9'
 
-  create_env_and_service_account:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
     - name: Create .env file and service_account.json
       run: |
         echo "AUTH_URL=${{ secrets.AUTH_URL }}" >> .env
@@ -33,20 +29,12 @@ jobs:
         echo "SPREADSHEET_ID=${{ secrets.SPREADSHEET_ID }}" >> .env
         echo '${{ secrets.SERVICE_ACCOUNT_FILE }}' > service_account.json
 
-  build:
-    needs: create_env_and_service_account
-    runs-on: ubuntu-latest
-    steps:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
     - name: Build Docker services
       run: make build
 
-  run_and_stop:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
     - name: Run services and stop container
       run: | 
         set -e
