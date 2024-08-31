@@ -35,9 +35,9 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ./reporting:/app/reporting
       - ./.env:/app/.env
       - shared-data:/app/traffic-data/files
+      - reporting-exports:/app/reporting/exports
     working_dir: /app/reporting
     depends_on:
       website-analytics:
@@ -46,3 +46,4 @@ services:
 
 volumes:
   shared-data:
+  reporting-exports:
