@@ -11,8 +11,8 @@ services:
       - shared-data:/app/traffic-data/files
     working_dir: /app/traffic-data
     command: python run_pipeline.py
-
-  website_analytics:
+  
+  website-analytics:
     build:
       context: .
       dockerfile: ./website-analytics/Dockerfile
@@ -26,9 +26,23 @@ services:
     depends_on:
       traffic-data:
         condition: service_completed_successfully
-    command: sh -c "dbt deps && dbt build && tail -f /dev/null"
-    tty: true
-    stdin_open: true
+    command: sh -c "dbt deps && dbt build"
+
+  reporting:
+    build:
+      context: .
+      dockerfile: ./reporting/Dockerfile
+    env_file:
+      - ./.env
+    volumes:
+      - ./reporting:/app/reporting
+      - ./.env:/app/.env
+      - shared-data:/app/traffic-data/files
+    working_dir: /app/reporting
+    depends_on:
+      website-analytics:
+        condition: service_completed_successfully
+    command: python model_export.py
 
 volumes:
   shared-data:
