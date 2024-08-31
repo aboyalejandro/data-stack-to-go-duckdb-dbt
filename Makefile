@@ -11,6 +11,10 @@ build:
 run:
 	$(DOCKER_COMPOSE) up 
 
+# Stop the Docker container
+stop:
+	$(DOCKER_COMPOSE) down 
+
 # Function to get the container ID dynamically
 GET_CONTAINER_ID := $(DOCKER_COMPOSE) ps -q reporting
 
