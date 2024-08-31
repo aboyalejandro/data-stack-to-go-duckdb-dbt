@@ -27,7 +27,7 @@ jobs:
         echo "DUCKDB_PATH=${{ secrets.DUCKDB_PATH }}" >> .env
         echo "INPUT_FILES_PATH=${{ secrets.INPUT_FILES_PATH }}" >> .env
         echo "SPREADSHEET_ID=${{ secrets.SPREADSHEET_ID }}" >> .env
-        echo '${{ secrets.SERVICE_ACCOUNT_FILE }}' > service_account.json
+        echo '${{ secrets.SERVICE_ACCOUNT_FILE }}' > ./reporting/service_account.json
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2

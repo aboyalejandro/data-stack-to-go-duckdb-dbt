@@ -28,3 +28,5 @@ A portable data-stack with:
 ````
 
 - make clean (removes all generated files)
+
+- To run in Github Actions, create secrets
