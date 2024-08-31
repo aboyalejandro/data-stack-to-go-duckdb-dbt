@@ -127,6 +127,23 @@ def save_to_duck_db(table_name):
     con.close()
 
 
+def transform_data(endpoint, df):
+    if endpoint == "events":
+        df["goal_id"] = df["goal_id"].apply(lambda x: x[1])
+
+    elif endpoint == "sessions":
+        df["visitor_returning"] = df["visitor_returning"].apply(lambda x: x[1])
+        df["location_country_name"] = df["location_country_name"].apply(lambda x: x[1])
+    else:
+        df["referrer_type"] = df["referrer_type"].apply(lambda x: x[1])
+        df["visitor_returning"] = df["visitor_returning"].apply(lambda x: x[1])
+        df["location_country_name"] = df["location_country_name"].apply(lambda x: x[1])
+        df["operating_system"] = df["operating_system"].apply(lambda x: x[1])
+        df["device_type"] = df["device_type"].apply(lambda x: x[1])
+
+        return df.convert_dtypes()
+
+
 def get_endpoints_data(url, endpoint, website_id, bearer):
     logging.info(f"Getting payload for {endpoint} endpoint...")
     payload = get_payload(endpoint, website_id)
@@ -143,23 +160,7 @@ def get_endpoints_data(url, endpoint, website_id, bearer):
     data["date_inserted"] = pd.Timestamp.now().strftime("%Y-%m-%d %X")
 
     logging.info(f"Applying transformations to {endpoint} endpoint...")
-    if endpoint == "events":
-        data["goal_id"] = data["goal_id"].apply(lambda x: x[1])
-        data = data.convert_dtypes()
-    elif endpoint == "sessions":
-        data["visitor_returning"] = data["visitor_returning"].apply(lambda x: x[1])
-        data["location_country_name"] = data["location_country_name"].apply(
-            lambda x: x[1]
-        )
-    else:
-        data["referrer_type"] = data["referrer_type"].apply(lambda x: x[1])
-        data["visitor_returning"] = data["visitor_returning"].apply(lambda x: x[1])
-        data["location_country_name"] = data["location_country_name"].apply(
-            lambda x: x[1]
-        )
-        data["operating_system"] = data["operating_system"].apply(lambda x: x[1])
-        data["device_type"] = data["device_type"].apply(lambda x: x[1])
-        data = data.convert_dtypes()
+    transform_data(endpoint, data)
 
     logging.info(f"Saving {endpoint} DataFrame to CSV file.")
     data.to_csv(f"files/{endpoint}.csv", index=False)

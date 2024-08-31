@@ -42,7 +42,7 @@ services:
     depends_on:
       website-analytics:
         condition: service_completed_successfully
-    command: python model_export.py
+    command: python model_export.py 
 
 volumes:
   shared-data:

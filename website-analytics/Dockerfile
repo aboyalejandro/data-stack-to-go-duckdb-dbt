@@ -4,8 +4,8 @@ FROM python:3.10-slim-buster
 # Set the working directory to /app
 WORKDIR /app
 
-# Copy ALL folders
-COPY . .
+# Copy website-analytics path
+COPY ./website-analytics/ ./website-analytics/
 
 # Export ENV vars
 ENV INPUT_FILES_PATH=${INPUT_FILES_PATH}
