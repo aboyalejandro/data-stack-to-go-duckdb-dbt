@@ -43,7 +43,7 @@ service = build("sheets", "v4", credentials=creds)
 sheet = service.spreadsheets()
 
 # List of tables (CSV files)
-tables = ["traffic_performance", "attribution", "visitors_snapshot", "visitors"]
+tables = ["traffic_performance", "attribution", "visitors"]
 
 # Read each CSV file and upload to Google Sheets
 for table in tables:
