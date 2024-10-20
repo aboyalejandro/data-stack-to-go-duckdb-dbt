@@ -31,7 +31,7 @@ make build
 make run 
 ```
 - Once the data is present on the Google Sheet, connect Looker Studio to it. 
-- If you want to query data. Uncomment line 45, 46, 47 and replace the command value with:
+- If you want to query data. Uncomment line 45, 46, 47 of docker-compose.yml and replace the command value with:
 
 ```sh
 sh -c "python model_export.py && tail -f /dev/null
