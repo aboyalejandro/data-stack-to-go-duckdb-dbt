@@ -1,5 +1,7 @@
 # 🚀 Portable Data Stack with dbt, DuckDB and Sheets! 
 
+This repo provides a POC to demostrate how a portable data stack can provide an end-to-end ETL process with simple BI. It's calling PiwikPRO API for a demo account and using GCP service account to interact with Google Sheets. 
+
 All the context in this blog post: [📦 Portable Data Stack Concept With dbt, DuckDB, Sheets and Looker Studio](https://open.substack.com/pub/thepipeandtheline/p/portable-data-stack-concepts-with-dbt-duckdb-sheets-looker-studio)
 
 A portable data-stack with:
