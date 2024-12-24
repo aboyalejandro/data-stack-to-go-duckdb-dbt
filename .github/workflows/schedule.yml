@@ -1,8 +1,7 @@
 name: Data Stack To Go - Daily Job
 
 on:
-  schedule:
-    - cron: '0 2 * * *'  # Runs at 2 AM UTC every day
+  # schedule: - cron: '0 2 * * *'  # Runs at 2 AM UTC every day
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
